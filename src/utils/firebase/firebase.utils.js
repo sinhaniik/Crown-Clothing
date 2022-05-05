@@ -4,8 +4,8 @@ import {
 	getAuth,
 	signInWithRedirect,
 	signInWithPopup,
-	GoogleAuthProvider
-	// FacebookAuthProvider
+	GoogleAuthProvider,
+	FacebookAuthProvider
 } from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 
-// const fbProvider = new FacebookAuthProvider();
+const fbProvider = new FacebookAuthProvider();
 
 //google auth
 provider.setCustomParameters({
@@ -43,8 +43,6 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
 	const userSnapshot = await getDoc(userDocRef);
 	console.log(userSnapshot);
-
-	console.log(userSnapshot.exists());
 
 	//if userData does not exist
 	if (!userSnapshot.exists()) {
@@ -66,9 +64,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 };
 
 // facebook auth
+fbProvider.getCustomParameters({
+	prompt: 'select_account'
+});
 
-// fbProvider.getCustomParameters({
-// 	prompt: 'select_account'
-// });
-
-// export const signInWithFacebookPopup = () => signInWithPopup(auth, fbProvider);
+export const signInWithFacebookPopup = () => signInWithPopup(auth, fbProvider);
