@@ -5,7 +5,8 @@ import {
 	signInWithRedirect,
 	signInWithPopup,
 	GoogleAuthProvider,
-	FacebookAuthProvider
+	FacebookAuthProvider,
+	createUserWithEmailAndPassword
 } from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -34,15 +35,23 @@ provider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+// facebook auth
+fbProvider.getCustomParameters({
+	prompt: 'select_account'
+});
+
+export const signInWithFacebookPopup = () => signInWithPopup(auth, fbProvider);
+
+//working with database
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+	userAuth,
+	additionalInformation = {}
+) => {
 	const userDocRef = doc(db, 'user', userAuth.uid); //takes 3 parameter
 
-	console.log(userDocRef);
-
 	const userSnapshot = await getDoc(userDocRef);
-	console.log(userSnapshot);
 
 	//if userData does not exist
 	if (!userSnapshot.exists()) {
@@ -53,7 +62,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 			await setDoc(userDocRef, {
 				displayName,
 				email,
-				createdAt
+				createdAt,
+				...additionalInformation
 			});
 		} catch (error) {
 			console.log('error creating at auth', error.message);
@@ -63,9 +73,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 	return userDocRef;
 };
 
-// facebook auth
-fbProvider.getCustomParameters({
-	prompt: 'select_account'
-});
+export const createdAuthUserWithEmailAndPassword = async (email, password) => {
+	if (!email || !password) return;
 
-export const signInWithFacebookPopup = () => signInWithPopup(auth, fbProvider);
+	return await createUserWithEmailAndPassword(auth, email, password);
+};
