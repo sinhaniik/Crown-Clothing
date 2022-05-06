@@ -5,6 +5,12 @@ import {
 	createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils';
 
+import FormInput from '../form-input/form-input.component';
+
+import './sign-up-form.style.scss';
+
+import Button from '../buttton/button.component';
+
 const dafaultFormFields = {
 	displayName: '',
 	email: '',
@@ -56,11 +62,12 @@ const SignUpform = () => {
 	};
 
 	return (
-		<div>
-			<h1>sign in with an email and password</h1>
+		<div className='form-input-container'>
+			<h2> Don't have an account ?? </h2>
+			<span>Sign in with your email and password</span>
 			<form onSubmit={handleSubmit}>
-				<label>Display Name</label>
-				<input
+				<FormInput
+					label='Display Name'
 					type='text'
 					required
 					onChange={handleChange}
@@ -68,8 +75,8 @@ const SignUpform = () => {
 					value={displayName}
 				/>
 
-				<label>Email</label>
-				<input
+				<FormInput
+					label='Email'
 					type='email'
 					required
 					onChange={handleChange}
@@ -77,8 +84,8 @@ const SignUpform = () => {
 					value={email}
 				/>
 
-				<label>Password</label>
-				<input
+				<FormInput
+					label='Password'
 					type='password'
 					required
 					onChange={handleChange}
@@ -86,8 +93,8 @@ const SignUpform = () => {
 					value={password}
 				/>
 
-				<label>Confirm Password</label>
-				<input
+				<FormInput
+					label='Conform Password'
 					type='password'
 					required
 					onChange={handleChange}
@@ -95,7 +102,7 @@ const SignUpform = () => {
 					value={confirmPassword}
 				/>
 
-				<button type='submit'>Sign up</button>
+				<Button type='submit'>sign up</Button>
 			</form>
 		</div>
 	);
