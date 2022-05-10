@@ -23,12 +23,11 @@ const SignInform = () => {
 	};
 
 	const signInWithGoogle = async () => {
-		const { user } = await signInWithGooglePopup();
-		await createUserDocumentFromAuth(user);
+		await signInWithGooglePopup();
 	};
 
 	const signInWithFacebook = async () => {
-		const { user } = await signInWithFacebookPopup();
+		await signInWithFacebookPopup();
 	};
 
 	const handleSubmit = async (event) => {
