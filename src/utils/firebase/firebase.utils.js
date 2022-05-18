@@ -58,6 +58,7 @@ export const signInWithFacebookPopup = () => signInWithPopup(auth, fbProvider);
 //working with database
 export const db = getFirestore();
 
+//item adding to the database
 export const addCollectionAndDocuments = async (
 	collectionKey,
 	objectsToAdd
@@ -74,6 +75,7 @@ export const addCollectionAndDocuments = async (
 	console.log('done');
 };
 
+//fetching items from database
 export const getCategoriesAndDocuments = async () => {
 	const collectionRef = collection(db, 'categories');
 	const q = query(collectionRef);
@@ -90,6 +92,7 @@ export const getCategoriesAndDocuments = async () => {
 	return categoryMap;
 };
 
+//getting user data from database
 export const createUserDocumentFromAuth = async (
 	userAuth,
 	additionalInformation = {}

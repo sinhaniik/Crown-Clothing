@@ -57,7 +57,6 @@ export const CartProvider = ({ children }) => {
 	const [isCartOpen, setIsCartOpen] = useState();
 	const [cartItems, setIsCartItems] = useState([]);
 	const [cartCount, setCartCount] = useState(0);
-	const [clearItem, setClearItem] = useState();
 	const [cartTotal, setcartTotal] = useState(0);
 
 	useEffect(() => {
