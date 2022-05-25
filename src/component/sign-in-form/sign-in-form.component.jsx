@@ -7,7 +7,7 @@ import {
 } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component';
 import './sign-in-form.style.scss';
-import Button from '../buttton/button.component';
+import Button, { BUTTON_TYPE_CLASS } from '../buttton/button.component';
 
 const dafaultFormFields = {
 	email: '',
@@ -87,15 +87,19 @@ const SignInform = () => {
 
 				<div className='buttons-container'>
 					<Button type='submit'>sign in</Button>
-					<Button type='button' buttonTypes='google' onClick={signInWithGoogle}>
-						google sign in
+					<Button
+						type='button'
+						buttonType={BUTTON_TYPE_CLASS.google}
+						onClick={signInWithGoogle}
+					>
+						google
 					</Button>
 					<Button
 						type='button'
-						buttonTypes='google'
+						buttonType={BUTTON_TYPE_CLASS.facebook}
 						onClick={signInWithFacebook}
 					>
-						facebook sign in
+						facebook
 					</Button>
 				</div>
 			</form>
