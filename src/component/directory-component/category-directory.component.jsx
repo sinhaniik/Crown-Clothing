@@ -1,4 +1,3 @@
-import { Route, useNavigate } from 'react-router-dom';
 import DirectoryItem from '../directory-items/directory-items.component';
 
 import { CategoriesContainer } from './category-directory.style.jsx';
