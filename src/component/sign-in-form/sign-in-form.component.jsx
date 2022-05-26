@@ -6,8 +6,9 @@ import {
 	signInAuthUserWithEmailAndPassword
 } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component';
-import './sign-in-form.style.scss';
 import Button, { BUTTON_TYPE_CLASS } from '../buttton/button.component';
+
+import { FormInputContainer, ButtonContainer } from './sign-in-form.styles';
 
 const dafaultFormFields = {
 	email: '',
@@ -63,7 +64,7 @@ const SignInform = () => {
 	};
 
 	return (
-		<div className='form-input-container'>
+		<FormInputContainer>
 			<h2> Already have an account ?? </h2>
 			<span>Sign in with your email and password</span>
 			<form onSubmit={handleSubmit}>
@@ -85,7 +86,7 @@ const SignInform = () => {
 					value={password}
 				/>
 
-				<div className='buttons-container'>
+				<ButtonContainer>
 					<Button type='submit'>sign in</Button>
 					<Button
 						type='button'
@@ -101,9 +102,9 @@ const SignInform = () => {
 					>
 						facebook
 					</Button>
-				</div>
+				</ButtonContainer>
 			</form>
-		</div>
+		</FormInputContainer>
 	);
 };
 
