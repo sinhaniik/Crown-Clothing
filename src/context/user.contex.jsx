@@ -19,7 +19,7 @@ export const USER_ACTION_TYPES = {
 const userReducer = (state, action) => {
 	console.log(state);
 	console.log(action);
-	// inm action we already know that this action have 2 thing
+	// in action we already know that this action have 2 thing
 	// 1. type 2. payload - it is store value which er r gonna update
 
 	const { type, payload } = action;
@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
 	// const [currentUser, setCurrentUser] = useState(null);
 
 	// use useReducer inside component
-	//useReducer takes 2 parameter
+	// useReducer takes 2 parameter
 	// 2. initial_state 1. function
 	const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
 	const { currentUser } = state;

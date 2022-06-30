@@ -1,12 +1,13 @@
 import { Fragment, useContext } from 'react';
 
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as CrownLogo } from '../../assests/crown.svg';
 import CartIcon from '../../component/cart-icon/cart-icon.component';
 import CartDropdown from '../../component/cart-dropdown/cart-dropdown.component';
+import { currentUserSelector } from '../../component/store/user/user.selector';
 
-import { UserContext } from '../../context/user.contex';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { CartContext } from '../../context/cart.context';
 import { userSignOut } from '../../utils/firebase/firebase.utils';
 
@@ -19,7 +20,11 @@ import {
 } from './navigation.style';
 
 const Navigation = () => {
-	const { currentUser } = useContext(UserContext);
+	// to access the redux store's state. This hook takes a selector function as an argument. The selector is called with the store state.
+	// whenever state changes react renders
+
+	const currentUser = useSelector(currentUserSelector);
+
 	const { isCartOpen } = useContext(CartContext);
 
 	return (
