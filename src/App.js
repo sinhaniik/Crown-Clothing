@@ -12,9 +12,11 @@ import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
 import { setCurrentUser } from './component/store/user/user-action';
-import { USER_ACTION_TYPES } from './context/user.contex';
+
+import { USER_ACTION_TYPES } from './component/store/user/user-types';
 
 const App = () => {
+	// UPDATE USER RELEATED DATA
 	const dispatch = useDispatch();
 
 	useEffect(() => {
