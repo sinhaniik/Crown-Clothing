@@ -3,7 +3,6 @@ import { queryAllByAltText } from '@testing-library/react';
 import { initializeApp } from 'firebase/app';
 import {
 	getAuth,
-	signInWithRedirect,
 	signInWithPopup,
 	GoogleAuthProvider,
 	FacebookAuthProvider,
@@ -82,14 +81,7 @@ export const getCategoriesAndDocuments = async () => {
 
 	const querySnapshot = await getDocs(q);
 
-	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-		const { title, items } = docSnapshot.data();
-		// console.log(docSnapshot.data());
-		acc[title.toLowerCase()] = items;
-		return acc;
-	}, {});
-
-	return categoryMap;
+	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 //getting user data from database

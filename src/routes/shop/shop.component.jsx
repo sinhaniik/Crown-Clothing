@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import CategoriesPreview from '../categories-preview/categories-preview.component';
 import Category from '../../component/category/category.component';
 import './shop.styles.scss';
 
 import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 // for redux
-import { useEffect } from 'react';
 import { CATEGORIES_ACTION_TYPES } from '../../component/store/categories/categories.types';
-// import { setCategoriesMap } from '../../component/store/categories/categories.action';
+import { setCategories } from '../../component/store/categories/categories.action';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 
 const Shop = () => {
@@ -15,11 +15,11 @@ const Shop = () => {
 
 	useEffect(() => {
 		const getCategoriesMap = async () => {
-			const categoryMap = await getCategoriesAndDocuments();
-			// console.log(categoryMap);
+			const categoriesArray = await getCategoriesAndDocuments();
+			// console.log(categoriesArray);
 			dispatch({
-				type: CATEGORIES_ACTION_TYPES.SET_CATEGORIES_MAP,
-				payload: categoryMap
+				type: CATEGORIES_ACTION_TYPES.SET_CATEGORIES,
+				payload: categoriesArray
 			});
 		};
 
