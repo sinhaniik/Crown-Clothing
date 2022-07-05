@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
@@ -8,8 +8,8 @@ import CartDropdown from '../../component/cart-dropdown/cart-dropdown.component'
 import { currentUserSelector } from '../../component/store/user/user.selector';
 
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { CartContext } from '../../context/cart.context';
 import { userSignOut } from '../../utils/firebase/firebase.utils';
+import { selectIsCartOpen } from '../../component/store/cart/cart.selector';
 
 //styled-component jsx
 import {
@@ -25,7 +25,7 @@ const Navigation = () => {
 
 	const currentUser = useSelector(currentUserSelector);
 
-	const { isCartOpen } = useContext(CartContext);
+	const isCartOpen = useSelector(selectIsCartOpen);
 
 	return (
 		<Fragment>
