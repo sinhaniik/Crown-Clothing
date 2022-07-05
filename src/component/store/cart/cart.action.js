@@ -44,7 +44,9 @@ const clearItemCart = (cartItems, cartItemToClear) => {
 };
 
 // helper function which helps us in updating the(action creaters)
-// action types
+// action types/ action creator function
+
+//check if cart is open or close
 export const setIsCartOpen = (bool) =>
 	createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool);
 
