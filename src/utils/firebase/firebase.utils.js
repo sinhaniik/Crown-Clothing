@@ -1,5 +1,3 @@
-import { async } from '@firebase/util';
-import { queryAllByAltText } from '@testing-library/react';
 import { initializeApp } from 'firebase/app';
 import {
 	getAuth,
@@ -129,3 +127,17 @@ export const userSignOut = async () => await signOut(auth);
 
 export const onAuthStateChangedListner = (callback) =>
 	onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		//authChange takes three argument 1. auth 2. a callback 3. optional (what if callback fails)
+		const unsubscribe = onAuthStateChanged(
+			auth,
+			(userAuth) => {
+				unsubscribe();
+				resolve(userAuth);
+			},
+			reject
+		);
+	});
+};
