@@ -9,11 +9,13 @@ import {
 
 //reduxify
 import { useSelector } from 'react-redux/es/exports';
-import { useDispatch } from 'react-redux/es/exports';
+
 import {
 	selectCartItems,
 	selectCartTotal
 } from '../../component/store/cart/cart.selector';
+
+import PaymentForm from '../../component/payment-form/payment-form.component';
 
 const Checkout = () => {
 	const cartItems = useSelector(selectCartItems);
@@ -47,6 +49,8 @@ const Checkout = () => {
 				return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
 			})}
 			<Total>Total :${cartTotal}</Total>
+
+			<PaymentForm />
 		</CheckoutContainer>
 	);
 };
