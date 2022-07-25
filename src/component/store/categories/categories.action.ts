@@ -2,7 +2,8 @@ import { CATEGORIES_ACTION_TYPES, Category } from './categories.types';
 import {
 	createAction,
 	Action,
-	ActionWithPayload
+	ActionWithPayload,
+	withMatcher
 } from '../../../utils/firebase/reducer/reducer.utils';
 
 // FIRST WE HAVE TO MAKE RETURN-TYPE OF THESE ACTION TRIGGERS
@@ -27,16 +28,20 @@ export type CategoryAction =
 	| fetchCategoryFailed;
 
 // ACTION CREATER
-export const fetchCategoryStart = (): FetchCategoryStart =>
-	createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const fetchCategoryStart = withMatcher(
+	(): FetchCategoryStart =>
+		createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
 
-export const fetchCategorySuccess = (
-	categoriesArray: Category[]
-): FetchCategorySuccess =>
-	createAction(
-		CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-		categoriesArray
-	);
+export const fetchCategorySuccess = withMatcher(
+	(categoriesArray: Category[]): FetchCategorySuccess =>
+		createAction(
+			CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+			categoriesArray
+		)
+);
 
-export const fetchCategoryFailed = (error: Error): fetchCategoryFailed =>
-	createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
+export const fetchCategoryFailed = withMatcher(
+	(error: Error): fetchCategoryFailed =>
+		createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
+);
