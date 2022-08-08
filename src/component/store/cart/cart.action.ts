@@ -3,10 +3,8 @@ import { CART_ACTION_TYPES, CartItem } from './cart.types';
 import {
 	createAction,
 	withMatcher,
-	Action,
 	ActionWithPayload
 } from '../../../utils/firebase/reducer/reducer.utils';
-import { CartItems } from '../../cart-dropdown/cart-dropdown.styles';
 
 // utility function
 const itemsToCart = (
