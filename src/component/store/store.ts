@@ -1,6 +1,6 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware, Middleware } from 'redux';
 
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer, persistStore, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import logger from 'redux-logger';
@@ -9,10 +9,17 @@ import { rootReducer } from './root-reducer';
 import createSagaMiddleware from '@redux-saga/core';
 import { rootSaga } from './root-saga';
 
-const persistConfig = {
+// here we use typeof keyword to get the type of root reducer
+export type StoreType = ReturnType<typeof rootReducer>;
+
+type ExpentedPersistConfig = PersistConfig<StoreType> & {
+	whitelist: (keyof StoreType)[];
+};
+
+const persistConfig: ExpentedPersistConfig = {
 	key: 'root',
 	storage,
-	blacklist: ['user']
+	whitelist: ['user']
 };
 
 const sagaMiiddleWare = createSagaMiddleware();
@@ -24,11 +31,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [
 	process.env.NODE_ENV === 'development' && logger,
 	sagaMiiddleWare
-].filter(Boolean);
+].filter((middleWare): middleWare is Middleware => Boolean(middleWare));
 
-const composedEnhancer = compose(applyMiddleware(...middleWares));
+const composedEnhancers = compose(applyMiddleware(...middleWares));
 
-export const store = createStore(persistedReducer, composedEnhancer);
+export const store = createStore(persistedReducer, composedEnhancers);
 
 sagaMiiddleWare.run(rootSaga);
 
