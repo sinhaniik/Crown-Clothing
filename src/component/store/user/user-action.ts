@@ -1,4 +1,5 @@
 import { USER_ACTION_TYPES } from './user-types';
+import { User } from 'firebase/auth';
 import {
 	createAction,
 	Action,
@@ -8,6 +9,10 @@ import {
 
 import { UserType } from './user-types';
 import { AdditionalUserInfo } from 'firebase/auth';
+import {
+	AdditionalInformation,
+	UserData
+} from '../../../utils/firebase/firebase.utils';
 
 export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
 
@@ -30,7 +35,7 @@ export type EmailSignInStart = ActionWithPayload<
 
 export type SignInSuccess = ActionWithPayload<
 	USER_ACTION_TYPES.SIGN_IN_SUCCESS,
-	UserType
+	UserData
 >;
 
 export type SignInFailed = ActionWithPayload<
@@ -51,8 +56,8 @@ export type SignUpStart = ActionWithPayload<
 export type SignUpSuccess = ActionWithPayload<
 	USER_ACTION_TYPES.SIGN_UP_SUCCESS,
 	{
-		user: string;
-		additionalDetails: AdditionalUserInfo;
+		user: User;
+		additionalDetails: AdditionalInformation;
 	}
 >;
 
@@ -96,7 +101,7 @@ export const emailSignInStart = withMatcher(
 );
 
 export const signInSuccess = withMatcher(
-	(user: UserType): SignInSuccess =>
+	(user: UserData & { id: string }): SignInSuccess =>
 		createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user)
 );
 
@@ -116,7 +121,7 @@ export const signUpStart = withMatcher(
 );
 
 export const signUpSuccess = withMatcher(
-	(user: string, additionalDetails: AdditionalUserInfo): SignUpSuccess =>
+	(user: User, additionalDetails: AdditionalInformation): SignUpSuccess =>
 		createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {
 			user,
 			additionalDetails

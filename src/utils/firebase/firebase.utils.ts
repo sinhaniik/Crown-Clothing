@@ -150,7 +150,7 @@ export const signInAuthUserWithEmailAndPassword = async (
 	return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const userSignOut = async () => await signOut(auth);
+export const userSignOut = async (): Promise<void> => await signOut(auth);
 
 export const onAuthStateChangedListner = (callback: NextOrObserver<User>) =>
 	onAuthStateChanged(auth, callback);
